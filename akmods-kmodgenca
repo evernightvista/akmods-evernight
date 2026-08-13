@@ -433,6 +433,12 @@ function create_cacert_config() {
             # Set '-batch' argument.
             AUTOMATIC_BUILD_OPTION="-batch"
 
+            local cert_country_code=$(locale country_ab2)
+            if [[ -z ${cert_country_code} ]]; then
+                echo -e "${BOLD_YELLOW_TEXT}WARNING:${CLEAR_TEXT} COULD NOT DETECT COUNTRY CODE FROM LOCALE; USING FALLBACK VALUE: US" >&2
+                cert_country_code=US
+            fi
+
             # Utilise default values if 'AUTOMATIC_BUILD' is equal to '1'.
             # - Set OpenSSL field values.
             # - Comment default and min/max values.
@@ -441,7 +447,7 @@ function create_cacert_config() {
                 -e "s#\(emailAddress *= \).*#\1akmods@${cert_hostname}#" \
                 -e "s#\(localityName *= \).*#\1None#" \
                 -e "s#\(stateOrProvinceName *= \).*#\1None#" \
-                -e "s#\(countryName *= \).*#\1$(locale country_ab2)#" \
+                -e "s#\(countryName *= \).*#\1${cert_country_code}#" \
                 -e "s#\(commonName *= \).*#\1${KEYNAME}#" \
                 -e "s/^[^#]*_default *= /#&/" \
                 -e "s/^[^#]*_min/#&/" \
