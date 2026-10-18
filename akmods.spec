@@ -2,7 +2,7 @@
 ## (rpmautospec version 0.8.4)
 ## RPMAUTOSPEC: autorelease, autochangelog
 %define autorelease(e:s:pb:n) %{?-p:0.}%{lua:
-    release_number = 1;
+    release_number = 2;
     base_release_number = tonumber(rpm.expand("%{?-b*}%{!?-b:1}"));
     print(release_number + base_release_number - 1);
 }%{?-e:.%{-e*}}%{?-s:.%{-s*}}%{!?-n:%{?dist}}
@@ -78,12 +78,18 @@ Requires:       (kernel-devel-matched if kernel-core)
 Requires:       (kernel-evernight-surface-devel-matched if kernel-evernight-surface)
 Requires:       (kernel-evernight-honor-devel-matched if kernel-evernight-honor)
 Requires:       (kernel-evernight-devel-matched if kernel-evernight)
+Requires:       (kernel-miryu-surface-devel-matched if kernel-miryu-surface)
+Requires:       (kernel-miryu-honor-devel-matched if kernel-miryu-honor)
+Requires:       (kernel-miryu-devel-matched if kernel-miryu)
 %else
 Suggests:       (kernel-debug-devel if kernel-debug-core)
 Suggests:       (kernel-devel if kernel-core)
 Suggests:       (kernel-evernight-surface-devel if kernel-evernight-surface)
 Suggests:       (kernel-evernight-honor-devel if kernel-evernight-honor)
 Suggests:       (kernel-evernight-devel if kernel-evernight)
+Suggests:       (kernel-miryu-surface-devel if kernel-miryu-surface)
+Suggests:       (kernel-miryu-honor-devel if kernel-miryu-honor)
+Suggests:       (kernel-miryu-devel if kernel-miryu)
 %endif
 Suggests:       (kernel-rt-devel if kernel-rt)
 
